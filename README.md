@@ -1,5 +1,9 @@
 # IOT-Platform
-
+1. This is a platform for controlling the IoT devices.
+2. Admins can register various types of sensors with their properties, and developers can up-load and run/schedule IOT based algorithms
+on them.
+3. The platform takes care of validating code,creating virtual environments, load balanc-ing,sensor binding and functionality of show-ing real time output which then can be used to take particular action.
+4. Technologies used: Python, kafka, Docker,Flask, MongoDB.
 Complete Architecture:
 ![Big Picture](https://github.com/pratikiiith/IOT-Platform/blob/master/bigpic.png)
 
