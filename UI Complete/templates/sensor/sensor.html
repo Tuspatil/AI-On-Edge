@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <title>Sensor Registration</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/icon type">
+</head>
+
+<body class="body-inside">
+    <div id="ias">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="{{ url_for('sensor') }}">Sensor Registration</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('query') }}">Sensor Query</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('admin') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card upload-form-sensor">
+        <div class="card">
+            <article class="card-body">
+                <h4 class="card-title text-center mb-4 mt-1">Sensor Registration</h4>
+                <hr> {% if displaytext == 'Error' %}
+                <p class="text-success text-center message-show-error">{{ displaytext }}</p>
+                {% elif displaytext == 'Sensor Registered' %}
+                <p class="text-success text-center message-show-sucess">{{ displaytext }}</p>
+                {% else %}
+                <p style="visibility:hidden;">text</p>
+                {% endif %}
+                <form action="{{ url_for('sensor') }}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input name="sensorregistration" class="form-control" placeholder="Username" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputfile" accept=".json" name="file">
+                            <label class="custom-file-label" for="inputfile">Select file</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Upload </button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        $('#inputfile').on('change', function() {
+            var fileName = $(this).val();
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "Servers": [
+    {
+      "ip": "172.17.0.1",
+      "port": "22",
+      "username": "machine1",
+      "password": "password"
+    },
+    {
+      "ip": "172.17.0.2",
+      "port": "22",
+      "username": "root",
+      "password": "pppppp"
+    }
+  ]
+}

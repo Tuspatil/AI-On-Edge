@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+
+    <title>Dashboard</title>
+    <link rel="icon" href="../images/icon.png" type="image/icon type">
+</head>
+
+<body class="body-inside">
+    <div id="ias">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="../dashboard/dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../application/application.html">Application Upload</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../sensor/sensor.html">Sensor Registration</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../query/query.html">Sensor Query</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../login/login.html">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="center">
+        <h1>Service Dashboard</h1>
+    </div>
+    <div id="data" class="container">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Application Name</th>
+                    <th class="text-center">Service Name</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Start/Stop</th>
+                    <th class="text-center">View Output</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">Application 1</td>
+                    <td class="text-center">Service 1</td>
+                    <td class="text-center">Not Running</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-success" style="width:50%;">Start</button>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-info" style="width:50%;">Output</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">Application 1</td>
+                    <td class="text-center">Service 2</td>
+                    <td class="text-center">Not Running</td>
+                    <td class="text-center">
+                        <button type="button" class="btn disabled" style="width:50%;">N/A</button>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-info" style="width:50%;">Output</button>
+                    </td>
+                </tr>
+                <tr class="table-success">
+                    <td class="text-center">Application 1</td>
+                    <td class="text-center">Service 3</td>
+                    <td class="text-center">Running</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-danger" style="width:50%;">Stop</button>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-info" style="width:50%;">Output</button>
+                    </td>
+                </tr>
+                <tr class="table-success">
+                    <td class="text-center">Application 1</td>
+                    <td class="text-center">Service 4</td>
+                    <td class="text-center">Running</td>
+                    <td class="text-center">
+                        <button type="button" class="btn disabled" style="width:50%;">N/A</button>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-info" style="width:50%;">Output</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="5">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/icon type">
+
+    <script type="text/JavaScript">
+        $(document).ready(function() { $("button").click(function(){ var action=this.name; var value=this.value; $.ajax({ data :{ 'action':action, 'value':value }, type : 'POST', url : "{{ url_for('dashboard') }}", dataType: 'json', success: function(data){ if(action=="output"){ window.location = data; } } }); }); });
+    </script>
+</head>
+
+<body class="body-inside">
+    <div id="ias">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('application') }}">Application Upload</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('config') }}">Config Edit</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('query') }}">Sensor Query</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('login') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="center">
+        <h1>Service Dashboard</h1>
+    </div>
+    <div id="data" class="container">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Application Name</th>
+                    <th class="text-center">Service Name</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Start/Stop</th>
+                    <th class="text-center">View Output</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for _ in data %} {% if _[2]=='Running' %}
+                <tr class="table-success">
+                    {% else %}
+                    <tr>
+                        {% endif %}
+                        <td class="text-center">{{ _[0] }}</td>
+                        <td class="text-center">{{ _[1] }}</td>
+                        <td class="text-center">{{ _[2] }}</td>
+                        {% if _[3]=='True' %}
+                        <td class="text-center">
+                            <button type="button" class="btn disabled" style="width:50%;" disabled>N/A</button>
+                        </td>
+                        {% elif _[2]=='Running' %}
+                        <td class="text-center">
+                            <button type="button" type="button" class="btn btn-danger" style="width:50%;" name="stop" value="{{ _[5] }}">Stop</button>
+                        </td>
+                        {% else %}
+                        <td class="text-center">
+                            <button type="button" type="button" class="btn btn-success" style="width:50%;" name="start" value="{{ _[5] }}">Start</button>
+                        </td>
+                        {% endif %}
+                        
+                        {% if _[2]=='Running' %}
+                        <td class="text-center">
+                            <button type="button" type="button" class="btn btn-info" style="width:50%;" name="output" value="{{ _[5] }}">Output</button>
+                        </td>
+                        {% else %}
+                        <td class="text-center">
+                            <button type="button" type="button" class="btn btn-info" style="width:50%;" name="output" value="{{ _[5] }}"; disabled>Output</button>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

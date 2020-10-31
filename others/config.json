@@ -1,0 +1,45 @@
+{
+	"schedular": {
+		"userid": "32",
+		"application": [
+			{
+				"priority": "high",
+				"dependencies": {
+					"dependency": [
+						"getpicture.py",
+						"getfingerprint.py"
+					]
+				},
+				"algorithminfo": {
+					"algorithm": "detect_person.py",
+					"jobtype": "cron",
+					"schedulinginfo": {
+						"days": {
+							"day": [
+								"monday",
+								"thursday"
+							]
+						},
+						"start": "10:00",
+						"duration": "180"
+					}
+				},
+				"_id": "test_appl"
+			},
+			{
+				"priority": "low",
+				"dependencies": "",
+				"algorithminfo": {
+					"algorithm": "detect_temperature.py",
+					"jobtype": "single",
+					"schedulinginfo": {
+						"days": "",
+						"start": "12:00",
+						"duration": "60"
+					}
+				},
+				"_id": "test_appl2"
+			}
+		]
+	}
+}

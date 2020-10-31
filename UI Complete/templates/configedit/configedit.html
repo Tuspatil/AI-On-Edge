@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <title>Sensor Query</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/icon type">
+</head>
+
+<body class="body-inside">
+    <div id="ias">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('application') }}">Application Upload</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="{{ url_for('config') }}">Config Edit</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('query') }}">Sensor Query</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('login') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card upload-form-config" id="configform">
+        <div class="card" id="configforminner">
+            <article class="card-body">
+                <h4 class="card-title text-center mb-4 mt-1">Config Edit</h4>
+                <hr>{% if displaytext == 'Error' %}
+                <p class="text-success text-center message-show-error">{{ displaytext }}</p>
+                {% elif displaytext == 'Successful' %}
+                <p class="text-success text-center message-show-sucess">{{ displaytext }}</p>
+                {% else %}
+                <p style="visibility:hidden;">text</p>
+                {% endif %}
+                <form action="{{ url_for('config') }}" method="post">
+                    <div class="form-group">
+                        <label>Select Service</label>
+                        <select class="form-control" name="service" id="service">
+                            {% for service in services %}
+                            <option value="{{service}}">{{service}}</option> {% endfor %}
+                        </select>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label>Dependencies</label><br/>
+                        <label class="control-label">
+                            <input id="nodependent" name="dependent" type="radio" value="No" checked> No
+                        </label><br/>
+                        <label class="control-label">
+                            <input id="yesdependent" name="dependent" type="radio" value="Yes"> Yes
+                        </label>
+                    </div>
+
+                    <div id="dependcycount">
+
+                    </div>
+                    <div id="dependcylist">
+
+                    </div>
+
+                    <div class="form-group">
+                            <label>Select Start Time</label>
+                            <input name="starttime" class="form-control" type="time">
+                    </div>
+                    <div class="form-group">
+                            <label>Select End Time</label>
+                            <input name="endtime" class="form-control" type="time">
+                    </div>
+                    <div class="form-group">
+                        <label>Select Service Type</label><br/>
+                        <label class="control-label">
+                            <input name="schtype" type="radio" value="True"> Scheduled
+                        </label><br/>
+                        <label class="control-label">
+                            <input name="schtype" type="radio" value="False"> Non-Scheduled
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Days</label>
+                        <select class="form-control" name="day">
+                            <option value="none">none</option>
+                            <option value="monday">monday</option>
+                            <option value="tuesday">tuesday</option>
+                            <option value="wednesday">wednesday</option>
+                            <option value="thursday">thursday</option>
+                            <option value="friday">friday</option>
+                            <option value="saturday">saturday</option>
+                            <option value="sunday">sunday</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Sensor Type</label>
+                        <select class="form-control" name="sensortype" id="sensortype">
+                            {% for sensortype in sensortypes %}
+                            <option value="{{sensortype}}">{{sensortype}}</option> {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Location</label>
+                        <select class="form-control" name="location" id="location" multiple disabled>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <label>Select data rate</label>
+                            <input name="datarate" class="form-control" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label>Select Action</label>
+                        <select class="form-control" name="action" id="action">
+                            <option value="displaytoadmin">Display to Admin</option>
+                            <option value="controlsensor">Control Sensor</option>
+                            <option value="email">email</option>
+                            <option value="sms">SMS</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="actionspecify">
+                        
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Upload </button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // AdjustHeight();
+            $( "#sensortype" ).change(function() {
+                $("#location").empty();
+                value=$(this).val();
+                $.ajax({
+                    data:{ 'action':'givelocation', 'value':value },
+                    type : 'POST',
+                    url : "{{ url_for('config') }}",
+                    dataType: 'json',
+                    success: function(data){
+                        var values=data["data"]
+                        var i=0;
+                        for(i=0;i<values.length;++i){
+                            // console.log(values[i]);
+                            $("#location").append($('<option>',{value:values[i],text:values[i]}));
+                            $('#location').removeAttr("disabled");
+                        }
+                } }); 
+            });
+
+            $("#action").change(function(){
+                value=$(this).val();
+                if(value=="email"){
+                    $("#actionspecify").empty();
+                    $("#actionspecify").append(
+                        "<label>To</label><input name='email-to' class='form-control' type='email'><label>Subject</label><input name='email-subject' class='form-control' type='text'>"
+                    );
+                    // $("#configform").addClass("upload-form-config-big");
+                    // $("#configform").removeClass("upload-form-config");
+                }
+                else if(value=="sms"){
+                    $("#actionspecify").empty();
+                    $("#actionspecify").append(
+                        "<label>Number</label><input name='sms-number' class='form-control' type='number'><label>Message</label><input name='sms-subject' class='form-control' type='text'>"
+                    );
+                    // $("#configform").addClass("upload-form-config-big");
+                    // $("#configform").removeClass("upload-form-config");
+                }
+                else{
+                    $("#actionspecify").empty();
+                    // $("#configform").removeClass("upload-form-config-big");
+                    // $("#configform").addClass("upload-form-config");
+                }
+                AdjustHeight();
+            });
+
+            $("#service").change(function(){
+                $("#nodependent").prop("checked", true).change();
+            });
+
+            $("input[name=dependent][type=radio]").change(function(){
+                if($(this).val()=="Yes"){
+                    value=$("#service").val();
+                    // console.log(value);
+                    $.ajax({
+                    data:{ 'action':'givecount', 'value':value },
+                    type : 'POST',
+                    url : "{{ url_for('config') }}",
+                    dataType: 'json',
+                    success: function(data){
+                        // console.log("Count")
+                        // console.log(data)
+                        var values=data["count"];
+                        var i=0;
+                        $("#dependcycount").append('<div class="form-group"><label>Select Number of dependencies</label><select class="form-control" name="numdependency" id="numdependency"></select></div">');
+                        for(i=0;i<values-1;++i){
+                            $("#numdependency").append($('<option>',{value:i+1,text:i+1}));
+                        }
+                        PutDependencyList();
+                    },
+                    complete:function(){
+                        AdjustHeight();
+                    }});
+                }
+                else{
+                    $("#dependcycount").empty();
+                    $("#dependcylist").empty();
+                    AdjustHeight();
+                }
+            });
+
+            $("#dependcycount").on("click","#numdependency",function(){
+                PutDependencyList();
+            });
+
+            function PutDependencyList(){
+                $("#dependcylist").empty();
+                value=$("#service").val();
+
+                $.ajax({
+                    data:{ 'action':'givedependency', 'value':value },
+                    type : 'POST',
+                    url : "{{ url_for('config') }}",
+                    dataType: 'json',
+                    success: function(data){
+                        // console.log("List")
+                        // console.log(data)
+                        var services=data["dependencies"];
+                        count=$("#numdependency").val();
+                        $("#dependcylist").append('<p> Select Dependencies</p>');
+
+                        var i=0;
+                        for(i=0;i<count;++i){
+                            $("#dependcylist").append('<div class="form-group"><label>Dependency '+(i+1).toString()+'</label><select class="form-control" name=dependcy'+(i+1).toString()+' id=dependency'+(i+1).toString()+'></select>');
+                            
+                            var j;
+                            for(j=0;j<services.length;++j){
+                                $("#dependency"+(i+1).toString()).append($('<option>',{value:services[j],text:services[j]}));
+                            }
+
+                            $("#dependcylist").append("</div>");
+                        }
+
+                    },
+                    complete:function(){
+                        AdjustHeight();
+                    } });
+
+            }
+
+            function AdjustHeight(){
+                // console.log($("#configform").css("height"));
+                // console.log($("#configform").innerHeight());
+                // console.log($("#configform").height());
+                // console.log($("#configforminner").css("height"));
+                // console.log($("#configforminner").innerHeight());
+                // console.log($("#configforminner").height());
+
+                var x=document.getElementsByClassName('upload-form-config');
+                var y=$("#configforminner").height()+10;
+                // console.log(y);
+                x[0].style.height = y.toString()+"px";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

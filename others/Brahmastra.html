@@ -1,0 +1,200 @@
+<Platform Configuration:>
+	init.zip:
+	    config.yml --> Done 
+	    Machine Agent.py
+	    Helper.py (TBD)(In case SSH doesn't work,used to run docker file)
+	    Unused_Machine_IP.txt
+	    /scheduler
+	    /service LC
+	    /Server LC
+	    ....
+
+
+<BootStrap Program:>
+	1. Build Environment on the Machine (Install Docker /Python/ etc)
+	2. SSH Machine using IP/Port available in config
+	3. Send Platform Code to the Machine
+	4. Run Machine Agent File / Helper.py
+	5. Run all the services assgined to that machine
+
+
+<Server Life Cycle Manager:>
+	Who will send Request:
+		1. Service Life Cycle Manager
+	What Request:
+		1. Allocate a Machine to run a service (either Available or New)
+	Input Format:
+		--> Count of Service to Run
+	Steps to serve Request:
+		1. Reads CPU stats available in RunTime Registry
+		2. If among the available machines , if any is able to run a service then send IP/Port/other details of that Machine
+		3. If No machine avilable, then SSH on Unuser_Machine_IP --> Copy Code on that Machine --->Run Machine.PY and Helper.py ---> Return IP/Port/other details to ServiceLCM
+	Output Format:
+		--> <IP/PORT/other> dictonary
+
+
+
+<Service Life Cycle Manager:>
+	Who will send Request:
+		1. Request Manager
+		2. Scheduler
+		3. Topology Manager
+
+	What Request:
+		1. To Start/Stop User Services --> send via Request M / Scheduler
+		2. To Start/Stop Platform Service --> send via Topology Manager
+		3. reg
+
+	Input Format:
+		1. <UserID /Service Name /Service Env /Service other details(sensor)>
+		2. <Platform Service ID,Machine IPport,status> (inbuilt will store path of each platform service)
+	Steps to Server:
+		
+		Platform Service:
+			1. In case any platform service gets down, topology manager will request service life cycle to start it again
+			2. Using request status Service LCM will know whether Machine is Down or Program is Down[-----]
+			3. If Machine is Down --> Request Server LCM for a Machine, SSH Machine, Run Program, Update details in Registry
+			4. If Program is Down --> SSH machine and run the program again//
+		
+		User Service:
+			1. Request Manager or Scheduler will send request to run user service
+			2. Check service status from registry --> already running/stopped/Never Runned (Not Sure)----
+			3. Get a Machine IP/Port from Server LCM
+			4. Send Deoplyment Manager to Wrap the service with essential things and start the service on given Machine ID
+			5. Store essential details of Service in Registry
+
+	Output Format:
+		1. Acknowledegement to requester that service runned successfully
+		2. Or Error
+
+
+<Request Manager:>
+	Who Will Send Request:
+		1. User
+	What Request:
+		1. Login/Logout
+		2. To Upload/Download Zip file
+		3. Sensor Registration
+		4. Service Start/Stop
+		5. Schedule Service
+		6. Display Service Running Status
+		Decide UI for this Module
+	Input Formt:
+		Web Based Portal
+		On Click Input will be served
+	Steps:
+		1. For Login/Logout , Ask Authentication and serve the same
+		2. For Upload and Download ---> Upload service will directly store extracted zip file in NFS(Repository)
+		3. For Sensor Registration ---> Send the Config file to Sensor Registration and display the ACK send via SR
+		4. Start / Stop Service Request --> Send request to Service LCM <FORMAT TBD>
+		5. Schedule a Service ---> Based on UI / Config user will request for scheduling ---> Request will be passed to Sceduler Manager <FORMAT TBD>
+		6. Display Running Status of Service ---> Start Time , CPU RAM,Memorty consumed by Program, Output if any
+
+
+<Deployment Manager:>
+	Who will send Request:
+		1. Service LCM
+	What Request:
+		1. To start a User service on given Machine
+	Input Format:
+		<ServiceId,Path to ServiceRootDir,config file>
+	Steps:
+		1. Using UserID and Service ID, download Service Code from Repository
+		2. Request Sensor Life Cycle Manager for Topic Name
+		3. Parse the service config file and create docker file respectively
+		3. Create Docker File for service and Pass Topic as Argument
+		4. Send Docker File to Machine for Running
+	Output:
+		1. ACK to Service LCM
+
+
+<Scheduler Manager:>
+	Who will Send Request:
+		1. Request Manager
+	
+	What Request:
+		1. Schedule User Service
+	
+	Input Format:
+		<User_id,Service_id,config>
+
+	Steps:
+		1. Parse the config file
+		2. Schedule the service as per user input
+		3. Send service start stop request to serviceLCM
+
+	Output:
+		1. Send Service Start/Stop request to ServiceLCM
+
+<Sensor Registration>
+	Who will send request:
+		1. Request Manager
+	What Request:
+		1. Register Sensor in Run Time Registry
+	Input Format:
+		Config File
+	Steps:
+		1. Get config file from Request Manager
+		2. Validate config file if not in correct format send error msg
+		3. Store the Sensor information in Run Time Registry
+		4. Send Sensor a topic to dump data
+		5. Store that topic in RunTime Registry
+
+<Sensor Manager>
+	Who will send Request:
+		1. Deployment Manager
+	What Request:
+		1. Get Sensor Topic to Bind with User Service
+	Input Format:
+		Sensor details given by User
+	Steps:
+		1. Sensor Manager will listen on a topic for request
+		2. Sensor will validate the request and will check if sensor is available in Registry or not
+		3. A temporary topic will be created and will be send to Deployment manager 
+		4. Sensor Manager will release a Thread to serve request
+		5. Thread will read data from sensor topic ---> Process the data as per user requirement --> dump the data in temporary topic created by sensor manager
+	Output:
+		1. Temporary Topic
+		2. Error that sensor not available
+
+<Topology Manager and Health Check>
+    
+    Steps:
+    1. Runs continuosly once started by bootstap.
+    2. Polls the service registry.
+    3. In case of platform service it pings the /health endpoint 
+         (i) If response is 200 OK, then do nothing
+        (ii) If response is not 200 OK, request service life cycle manager to re-deploy the service.
+    4. In case of user service, it pings the /health endpoint inside the health.py on the machine (This file was included when code was deployed).
+        Takes same action as above
+
+<Monitoring Module>
+
+    Steps:
+        1. All the servers in the system dump their system stats on a kafka topic.
+        2. This Module is responsible for reading those stats continuosly and calculate load on each machine
+        3. When contacted by the Server LCM, it responds back with the load on each machine.
+        4. This information is used by the Server LCM to determine which machine to deploy the new code on.
+
+<Logging Service>
+    Steps:
+        It is assumed that applications and services running on the platform generate their own logs.
+        They are responsible for reading and parsing these logs as and when they deem fit.
+        Thus, logs will be present on NFS available globally to the platform.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

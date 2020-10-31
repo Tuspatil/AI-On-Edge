@@ -1,0 +1,14 @@
+Meta Formats:
+
+1. Application Manager:
+   - Config file (Initial .zip file will consist of algorithms and config.json file)
+   - Details:
+            
+2. Scheduler Manager:
+   - User can upload meta file containing scheduling information
+   - Details:
+
+3. Sensor Registration:
+    - Admin can upload meta file consiting of initial sensor details requiredduring registration
+    - Details:
+        

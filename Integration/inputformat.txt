@@ -1,0 +1,151 @@
+
+Request from Request Manager to SensorRegistration
+   APIs:/sensorregistration
+   
+   New request format:-
+   {
+      "username": "",
+      "config_file": "serviceName"
+   }
+
+   Response format:{ 'ack':'Sensor Registered'
+   }
+
+Request from Request Manager to getsensordata
+   APIs:/getsensordata
+   
+   New request format:-
+   {
+      "username": "",
+      "config_file": "",
+   }
+
+   Response format: sensor data
+   
+
+Request from Request Manager to Scheduler:
+	APIs:/scheduler
+   	#jay yahan likh de format
+
+Request from Scheduler to ServiceLCM
+   APIs:
+   /servicelcm/service/start
+   /servicelcm/service/stop
+
+   New request format:-
+   {
+      "serviceId": "s2",
+      "servicename": "serviceName",
+      "applicationname":"App1,    
+      "username": "U1"
+   }
+   
+
+   Response format:-
+   200 / OK
+
+
+Request from ServiceLCM to ServerLCM:-
+   API: http://serverip:serverport/serverlcm/allocate_server/serviceid
+   Request Format: No request body needed
+
+
+Request to get Topology information from service LCM:
+API: GET http://127.0.0.1:8080/servicelcm/service/topology/{username}
+Response:
+[
+    {
+        "serviceId": "s1",
+        "serviceName": "service1",
+        "username": "u1",
+        "status": "alive",
+        "ip": "127.0.0.1",
+        "port": "55555",
+        "containerId": "8158b4e4c8e3",
+        "redeployRequest": "true",
+        "applicationName": "Appname 1",
+        "dependencyCount": 0
+    }
+]
+
+
+
+
+Response from ServerLCM to ServiceLCM (returns free server)
+   API http://127.0.0.1:8080/servicelcm/service/update
+   Request Format:
+   {
+      "result":"OK"/"NO MACHINE"
+      "serviceid": "s2",
+      "serverip": "127.0.0.1",
+      "sshPort": "22",
+      "machineusername": “Danish”,
+      "password":”password”
+   }
+   
+
+
+
+Request from ServiceLCM to DeploymentManager (to deploy a service)
+   API: /deployment/dodeploy
+   Request format : 
+   {
+   "username":,
+   "applicationname":,
+   "servicename":,
+   "serviceid":,
+   "serverip":
+   “sshPort”:,
+   "machineusername": ,
+   "password":”password”
+   }
+
+
+Response from DeploymentManager to ServiceLCM
+   API: http://127.0.0.1:8080/servicelcm/service/deploymentStatus
+   Request format:-
+   {
+	"serviceId":"s1",
+	"username":"u1",
+	"serviceName":"service1",
+	"status":"success",
+	"ip":"127.0.0.1",
+	"port":"55555",
+	"containerId":"8158b4e4c8e3",
+	"applicationName":"Appname 1"
+}
+
+
+Request from Deployment Manager to Sensor Manager:
+   API: /sensormanager/
+   Request format:{
+      "username":"",
+      "applicationname":"",
+      "servicename":"",
+      "serviceid":,
+      "config_file":
+   }
+
+
+Response from Sensor Manager to Deployment Manager:
+   Response format:-
+   {
+      "temporary_topic":"",
+      "sensor_host":["","",""]
+   }
+
+
+Request from Deployer to Action Manager:
+   APIs: /actionmanager
+
+   Request format:-
+   {
+      "username": "",
+      "applicationname": "",
+      "servicename":"",    
+      "serviceid": "",
+      "config_file":"",
+      "sensor_host":""
+   }
+
+

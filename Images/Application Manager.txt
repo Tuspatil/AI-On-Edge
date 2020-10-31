@@ -1,0 +1,4 @@
+﻿Signup : Application developer can use this module for signup.
+Login : Application developer can login through the login module. 
+Dashboard : Application developer can upload algorithms and meta files in zip file by dashboard. He can download the format of meta file for the algorithm from Dashboard.
+Validater : The format of meta file uploaded by developer will be verified by Validater if format is not proper error message will be displayed in Dashboard. Else algorithms and meta files will be stored in Repository.

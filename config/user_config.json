@@ -1,0 +1,186 @@
+
+"application_name":{
+  
+  "service-1":{
+      
+      "username": "useruniqueid", //login id
+      
+      "singleinstance":"True",
+      
+      "code_path":"",
+
+      "time": {
+        "start": [
+          "01:12",
+          "05:00"
+        ],
+        "end": [
+          "01:31",
+          "06:00"
+        ]
+      },
+      
+      "days":["Monday"],
+      
+      "period":"None",
+      
+      "dependencies": ["getpicture.py","getfingerprint.py"],
+
+      "sensor":{
+          "sensor1":
+            {
+              "sensor_name": "Fan",
+              "sensor_address" :
+              {
+                    "area" : "A",
+                    "building" : "B",
+                    "room_no" : "C"
+              },
+
+              "processing":
+              {
+                "data_rate":5
+              }
+            },
+
+            "sensor2":
+              {
+              "sensor_name": "Lamp",
+              "sensor_address" :
+              {
+                    "area" : "A",
+                    "building" : "C",
+                    "room_no" : "D"
+              },
+
+              "processing":
+              {
+                "data_rate":1
+              }
+            }
+      }
+  }
+  ,
+  "service-2":{
+      
+      "username": "useruniqueid",
+      
+      "application_id": "application_id",
+      
+      "service_name": "service_name",
+      
+      "singleinstance":"True",
+      
+      "time": {
+        "start": [
+          "01:12",
+          "05:00"
+        ],
+        "end": [
+          "01:31",
+          "06:00"
+        ]
+      },
+      
+      "days":["Monday"],
+      
+      "period":"None",
+      
+      "dependencies": ["getpicture.py","getfingerprint.py"],
+
+      "sensor":{
+          "sensor1":
+            {
+              "sensor_name": "Fan",
+              "sensor_address" :
+              {
+                    "area" : "A",
+                    "building" : "B",
+                    "room_no" : "C"
+              },
+
+              "processing":
+              {
+                "data_rate":5
+              }
+            },
+
+            "sensor2":
+              {
+              "sensor_name": "Lamp",
+              "sensor_address" :
+              {
+                    "area" : "A",
+                    "building" : "C",
+                    "room_no" : "D"
+              },
+
+              "processing":
+              {
+                "data_rate":1
+              }
+            }
+      }
+  }
+  ,"service-3":{
+      
+      "username": "useruniqueid",
+      
+      "application_id": "application_id",
+      
+      "service_name": "service_name",
+      
+      "singleinstance":"True",
+      
+      "time": {
+        "start": [
+          "01:12",
+          "05:00"
+        ],
+        "end": [
+          "01:31",
+          "06:00"
+        ]
+      },
+      
+      "days":["Monday"],
+      
+      "period":"None",
+      
+      "dependencies": ["getpicture.py","getfingerprint.py"],
+
+      "sensor":{
+          "sensor1":
+            {
+              "sensor_name": "Fan",
+              "sensor_address" :
+              {
+                    "area" : "A",
+                    "building" : "B",
+                    "room_no" : "C"
+              },
+
+              "processing":
+              {
+                "data_rate":5
+              }
+            },
+
+            "sensor2":
+              {
+              "sensor_name": "Lamp",
+              "sensor_address" :
+              {
+                    "area" : "A",
+                    "building" : "C",
+                    "room_no" : "D"
+              },
+
+              "processing":
+              {
+                "data_rate":1
+              }
+            }
+      }
+  }
+}

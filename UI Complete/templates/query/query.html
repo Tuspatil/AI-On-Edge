@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <title>Sensor Query</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/icon type">
+</head>
+
+<body class="body-inside">
+    {% if username == 'admin' %}
+    <div id="ias">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('sensor') }}">Sensor Registration</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="{{ url_for('query') }}">Sensor Query</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('admin') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+    {% else %}
+    <div id="ias">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('application') }}">Application Upload</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('config') }}">Config Edit</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="{{ url_for('query') }}">Sensor Query</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ url_for('login') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="card upload-form-query-left">
+        <div class="card">
+            <article class="card-body">
+                <h4 class="card-title text-center mb-4 mt-1">Sensor Query</h4>
+                <hr>
+                <p style="visibility:hidden;">text</p>
+                <form action="{{ url_for('query') }}" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            {% if not user %}
+                            <input name="username" class="form-control" placeholder="Username" type="text"> {% else %}
+                            <input name="username" class="form-control" placeholder="Username" type="text" value={{ user }}> {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Query </button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+
+    <div class="card upload-form-query-left-left">
+        <div class="card">
+            <article class="card-body">
+                <h4 class="card-title text-center mb-4 mt-1">Sensor Data Query</h4>
+                <hr> {% if displaytext %}
+                <p class="text-success text-center message-show-sucess">{{ displaytext }}</p>
+                {% else %}
+                <p style="visibility:hidden;">text</p>
+                {% endif %}
+                <form action="{{ url_for('query') }}" method="post">
+                    <div class="form-group">
+                        <label>Select sensor</label>
+                        <select class="form-control" name="sensorname">
+                            {% if sensors %} {% for sensor in sensors %}
+                            <option value="{{sensor}}">{{sensor}}</option>" {% endfor %} {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select operation</label>
+                        <select class="form-control" name="querytype">
+                            <option value="minimum">Minimum</option>
+                            <option value="maximum">Maximum</option>
+                            <option value="average">Average</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        {% if sensors %}
+                        <button type="submit" class="btn btn-primary btn-block"> Fetch Data </button>
+                        {% else %}
+                        <button type="submit" class="btn btn-primary btn-block" disabled> Fetch Data </button>
+                        {% endif %}
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+﻿1. Sensor Registration Service :
+1. Admin will upload a .json file containing information/mapping of sensor gateway with kafka topic and other sensor details.
+2. Module will be responsible to parse the meta file provided by the admin containing sensor information. This service will help register the sensor details and will create a unique topic for data to be dumped for each sensor. Each sensor gateway will receive a topic for data dumping.
+
+
+2. Sensor Manager :
+   1. Responsible for validating whether requested sensor details are available in system or not.
+   2. If available it will get its details from the registry.
+   3. From the repository it will read the sensor topic over which sensor is dumping the data
+   4. Further SM will send this data and appropriately will send the data to Algorithm
+
+
+Config Details:
+        Contains below information.
+        a. IP and Port to uniquely identify application developers request
+        b. Sensor Type
+        c. Sensor Location
+        d. Sensor Format
+        e. Time to serve
+            f. Algorithm Path
+
+
+Sensor Registration Details:
+        This meta file will contain below information;
+                a. Sensor Type
+                b. Sensor Location
+                c. Sensor Format

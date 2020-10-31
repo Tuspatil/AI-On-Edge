@@ -1,0 +1,344 @@
+{
+	"sensor1" :{
+		"sensor_name": "temperature",
+		"sensor_data_type": "float",
+		"sensor_geolocation" :
+				{
+					"lat" : "10",
+					"long" : "25"
+				},
+		"sensor_address" :
+				{
+					"area" : "iiith",
+					"building" : "nilgiri",
+					"room_no" : "100"
+				},
+		"data_dump":
+				{
+					"kafka":
+						{
+							"broker_ip":"127.0.0.1:9092",
+							"topic":"temperature1_out"
+						},
+					"mongo_db":
+						{
+							"ip":"None",
+							"port":"None",
+							"passwd":"None",
+							"document_name":"None"
+						}
+				},
+		"sensor_host":
+			{
+				"socket":
+				{
+					"ip": "None" ,
+					"port":"None"
+				},
+				"kafka":
+				{
+					"kafka_broker_ip":"127.0.0.1:9092",
+					"kafka_topic":"temperature1_in"
+				}
+			},
+		"api":"http://127.0.0.1:9000/temperature1"
+
+	},
+
+	"sensor2" :{
+		"sensor_name": "temperature",
+
+		"sensor_data_type": "float",
+
+		"sensor_geolocation" :
+				{
+					"lat" : "15",
+					"long" : "49"
+				},
+		"sensor_address" :
+				{
+					"area" : "iiith",
+					"building" : "nilgiri",
+					"room_no" : "101"
+				},
+
+		"data_dump":
+				{
+					"kafka":
+						{
+							"broker_ip":"127.0.0.1:9092",
+							"topic":"temperature2_out"
+						},
+					"mongo_db":
+						{
+							"ip":"None",
+							"port":"None",
+							"passwd":"None",
+							"document_name":"None"
+						}
+				},
+		
+		"sensor_host":
+			{
+				"socket":
+				{
+					"ip": "None" ,
+					"port":"None"
+				},
+
+				"kafka":
+				{
+					"kafka_broker_ip":"127.0.0.1:9092",
+					"kafka_topic":"temperature2_in"
+				}
+			},
+		"api":"http://127.0.0.1:9001/temperature2"
+
+	},
+
+	"sensor3" :{
+		"sensor_name": "doorstep",
+
+		"sensor_data_type": "int",
+
+		"sensor_geolocation" :
+				{
+					"lat" : "10",
+					"long" : "12"
+				},
+		"sensor_address" :
+				{
+					"area" : "iiith",
+					"building" : "nilgiri",
+					"room_no" : "100"
+				},
+
+		"data_dump":
+				{
+					"kafka":
+						{
+							"broker_ip":"127.0.0.1:9092",
+							"topic":"doorstep1_out"
+						},
+					"mongo_db":
+						{
+							"ip":"None",
+							"port":"None",
+							"passwd":"None",
+							"document_name":"None"
+						}
+				},
+		
+		"sensor_host":
+			{
+				"socket":
+				{
+					"ip": "None" ,
+					"port":"None"
+				},
+
+				"kafka":
+				{
+					"kafka_broker_ip":"127.0.0.1:9092",
+					"kafka_topic":"doorstep1_in"
+				}
+			}
+	},
+
+	"sensor4" :{
+		"sensor_name": "doorstep",
+
+		"sensor_data_type": "int",
+
+		"sensor_geolocation" :
+				{
+					"lat" : "15",
+					"long" : "49"
+				},
+		"sensor_address" :
+				{
+					"area" : "iiith",
+					"building" : "nilgiri",
+					"room_no" : "101"
+				},
+
+		"data_dump":
+				{
+					"kafka":
+						{
+							"broker_ip":"127.0.0.1:9092",
+							"topic":"doorstep2_out"
+						},
+					"mongo_db":
+						{
+							"ip":"None",
+							"port":"None",
+							"passwd":"None",
+							"document_name":"None"
+						}
+				},
+		
+		"sensor_host":
+			{
+				"socket":
+				{
+					"ip": "None" ,
+					"port":"None"
+				},
+
+				"kafka":
+				{
+					"kafka_broker_ip":"127.0.0.1:9092",
+					"kafka_topic":"doorstep2_in"
+				}
+			}
+	},
+
+	"sensor5" :{
+		"sensor_name": "attendance",
+
+		"sensor_data_type": "int",
+
+		"sensor_geolocation" :
+				{
+					"lat" : "10",
+					"long" : "12"
+				},
+		"sensor_address" :
+				{
+					"area" : "iiith",
+					"building" : "nilgiri",
+					"room_no" : "100"
+				},
+
+		"data_dump":
+				{
+					"kafka":
+						{
+							"broker_ip":"127.0.0.1:9092",
+							"topic":"attendance1_out"
+						},
+					"mongo_db":
+						{
+							"ip":"None",
+							"port":"None",
+							"passwd":"None",
+							"document_name":"None"
+						}
+				},
+		
+		"sensor_host":
+			{
+				"socket":
+				{
+					"ip": "None" ,
+					"port":"None"
+				},
+
+				"kafka":
+				{
+					"kafka_broker_ip":"127.0.0.1:9092",
+					"kafka_topic":"attendance1_in"
+				}
+			}
+	},
+
+	"sensor6" :{
+		"sensor_name": "attendance",
+
+		"sensor_data_type": "int",
+
+		"sensor_geolocation" :
+				{
+					"lat" : "15",
+					"long" : "49"
+				},
+		"sensor_address" :
+				{
+					"area" : "iiith",
+					"building" : "nilgiri",
+					"room_no" : "101"
+				},
+
+		"data_dump":
+				{
+					"kafka":
+						{
+							"broker_ip":"127.0.0.1:9092",
+							"topic":"attendance2_out"
+						},
+					"mongo_db":
+						{
+							"ip":"None",
+							"port":"None",
+							"passwd":"None",
+							"document_name":"None"
+						}
+				},
+		
+		"sensor_host":
+			{
+				"socket":
+				{
+					"ip": "None" ,
+					"port":"None"
+				},
+
+				"kafka":
+				{
+					"kafka_broker_ip":"127.0.0.1:9092",
+					"kafka_topic":"attendance2_in"
+				}
+			}
+	},
+
+	"sensor7" :{
+		"sensor_name": "alarm",
+
+		"sensor_data_type": "string",
+
+		"sensor_geolocation" :
+				{
+					"lat" : "25",
+					"long" : "50"
+				},
+		"sensor_address" :
+				{
+					"area" : "iiith",
+					"building" : "nilgiri",
+					"room_no" : "1"
+				},
+
+		"data_dump":
+				{
+					"kafka":
+						{
+							"broker_ip":"127.0.0.1:9092",
+							"topic":"alarm1_out"
+						},
+					"mongo_db":
+						{
+							"ip":"None",
+							"port":"None",
+							"passwd":"None",
+							"document_name":"None"
+						}
+				},
+		
+		"sensor_host":
+			{
+				"socket":
+				{
+					"ip": "None" ,
+					"port":"None"
+				},
+
+				"kafka":
+				{
+					"kafka_broker_ip":"127.0.0.1:9092",
+					"kafka_topic":"alarm1_in"
+				}
+			}
+	}
+	
+}

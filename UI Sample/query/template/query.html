@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+
+    <title>Sensor Query</title>
+    <link rel="icon" href="/static/images/icon.png" type="image/icon type">
+</head>
+
+<body class="body-inside">
+    <!-- <h1> dsafafdasf </h1> -->
+    <div id="ias">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../dashboard/dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../application/application.html">Application Upload</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../sensor/sensor.html">Sensor Registration</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" href="../query/query.html">Sensor Query</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="../login/login.html">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card upload-form-query-left">
+        <div class="card">
+            <article class="card-body">
+                <h4 class="card-title text-center mb-4 mt-1">Sensor Query</h4>
+                <hr>
+                <p class="text-success text-center message">Text if required</p>
+                <form action="." method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input name="sensoruser" class="form-control" placeholder="Username" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Query </button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+
+    <div class="card upload-form-query-left-left">
+        <div class="card">
+            <article class="card-body">
+                <h4 class="card-title text-center mb-4 mt-1">Sensor Data Query</h4>
+                <hr>
+                <p class="text-success text-center message">Text if required</p>
+                <form action=".">
+                    <div class="form-group">
+                        <label for="sel1">Select sensor</label>
+                        <select class="form-control" id="sel1">
+                            <option>{{n1}}</option>
+                            <option>{{n2}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Select operation</label>
+                        <select class="form-control" id="sel1">
+                            <option>Minimum</option>
+                            <option>Maximum</option>
+                            <option>Average</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Fetch Data </button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
+</body>
+
+</html>

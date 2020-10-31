@@ -1,0 +1,99 @@
+Platform Code Directory Structure:
+
+init.zip
+    -----BootStrap Config:
+    -----Machine.py
+    -----Helper.py
+    -----Unused_IP.txt
+    -----ServiceLCM/
+            docker file
+            .sh
+    -----ServerLCM/
+--------------------------------------------------------------------------------------------------------------
+BootStrap Config:
+
+Machine IP: 10.1.23.34
+
+port : 22
+
+pswd: iiiitiiit
+
+Dependency for host machine(script: first script to run): Docker[doable] / Already Installed + Run Machine Agent(.py)(for stats)
+
+Services_to_run
+    service Name: Server LCM
+        root_dir : path of /serverLC
+        docker_file: .dockerfile (container code for a particular service)
+        startscript : .sh file (script to run docker file)
+        params: json file
+
+    service Name: Service LC M
+        root_dir : path of /serverLC
+        docker_file: .dockerfile
+        startscript : .sh file
+        params: json file
+
+Machine IP: xx,xx.xx.xx
+
+port : 22
+
+pswd: iiiitiiit
+
+Dependency for host machine(script: first script to run): Docker[doable] / Already Installed + Run Machine Agent(.py)(for stats)
+
+Services_to_run
+    service Name: Server LCM
+        root_dir : path of /serverLC
+        docker_file: .dockerfile (container code for a particular service)
+        startscript : .sh file (script to run docker file)
+        params: json file
+
+    service Name: Service LC M
+        root_dir : path of /serverLC
+        docker_file: .dockerfile
+        startscript : .sh file
+        params: json file
+
+Machine IP: 10.1.23.34
+
+port : 22
+
+pswd: iiiitiiit
+
+Dependency for host machine(script: first script to run): Docker[doable] / Already Installed + Run Machine Agent(.py)(for stats)
+
+Services_to_run
+    service Name: Server LCM
+        root_dir : path of /serverLC
+        docker_file: .dockerfile (container code for a particular service)
+        startscript : .sh file (script to run docker file)
+        params: json file
+
+    service Name: Service LC M
+        root_dir : path of /serverLC
+        docker_file: .dockerfile
+        startscript : .sh file
+        params: json file
+---------------------------------------------------------------------------------------------------------------------------
+
+User Directory Structure:
+
+User_ID
+    ----Meta File
+    ----Application_Name
+        ---Service-1
+            --Code
+        ---Service-2
+            --Code
+        ---Service-3
+            --Code
+    ----Application_Name
+        ---Service-1
+            --Code
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+User Meta File:
